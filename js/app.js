@@ -49,8 +49,8 @@ function agregarNota(e) {
         // Limpiar el textarea
         formulario.reset();
         
-        // Mostrar arreglo de notas
-        console.log(notas);
+        // Mostrar arreglo de notas en el HTML
+        crearHTML();
     } else {
         mostrarError('No puede agregar una nota vacia');
     };
@@ -77,3 +77,29 @@ function mostrarError( error ) {
         }, 3000);
     };
 };
+
+function crearHTML() {
+    // Eliminar el HTML previo
+    limpiarHTML();
+
+    // Si el arreglo contiene una nota o mas
+    if( notas.length > 0 ) {
+        // Iterar arreglo
+        notas.forEach( nota => {
+            // Crear el HTML
+            const li = document.createElement('li');
+
+            // Agregar el texto
+            li.innerText = nota.nota;
+
+            // Insertar en el html
+            listaNotas.appendChild(li)
+        });
+    };
+};
+
+function limpiarHTML() {
+    while( listaNotas.firstChild ) {
+        listaNotas.removeChild(listaNotas.firstChild);
+    }
+}

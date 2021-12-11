@@ -86,11 +86,24 @@ function crearHTML() {
     if( notas.length > 0 ) {
         // Iterar arreglo
         notas.forEach( nota => {
+            // Agregar un boton de eliminar
+            const btnEliminar = document.createElement('a');
+            btnEliminar.classList.add('borrar-nota');
+            btnEliminar.innerText = 'X';
+
+            // Añadir la funcion de eliminar
+            btnEliminar.onclick = () => {
+                borrarNota(nota.id);
+            }
+
             // Crear el HTML
             const li = document.createElement('li');
 
             // Agregar el texto
             li.innerText = nota.nota;
+
+            // Agregar el boton
+            li.appendChild(btnEliminar);
 
             // Insertar en el html
             listaNotas.appendChild(li)
@@ -102,4 +115,13 @@ function limpiarHTML() {
     while( listaNotas.firstChild ) {
         listaNotas.removeChild(listaNotas.firstChild);
     }
+}
+
+function borrarNota( id ) {
+    /* Filtrar todas las notas exceptuando la que 
+    contiene el id que recibimos */
+    notas = notas.filter( nota => nota.id !== id );
+
+    // Volver a generar el HTML
+    crearHTML();
 }

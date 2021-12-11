@@ -22,6 +22,15 @@ function eventListeners() {
             agregarNota(e);
         };
     });
+
+    // Cuando el documento esta listo
+    document.addEventListener('DOMContentLoaded', () => {
+        // Obtener notas del Local Storage o retornar un arreglo vacio
+        notas = JSON.parse( localStorage.getItem('notas') ) || [];
+        
+        // Generar el html
+        crearHTML();
+    });
 };
 
 
@@ -109,7 +118,14 @@ function crearHTML() {
             listaNotas.appendChild(li)
         });
     };
+
+    // Agregar las notas en el local storage
+    sincronizarStorage();
 };
+
+function sincronizarStorage() {
+    localStorage.setItem('notas', JSON.stringify(notas));
+}
 
 function limpiarHTML() {
     while( listaNotas.firstChild ) {
